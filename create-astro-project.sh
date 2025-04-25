@@ -32,7 +32,7 @@ npm install
 
 # 5. Custom Packages installieren
 echo "📥 Installiere Custom-Packages..."
-npm install @casoon/ui-lib @casoon/astro-components alpinejs @astrojs/alpinejs @astrojs/mdx
+npm install @casoon/ui-lib @casoon/astro-components alpinejs @astrojs/alpinejs @astrojs/mdx lightningcss
 
 # 6. Astro Integrationen in Config einfügen
 echo "🔧 Konfiguriere astro.config.mjs..."
@@ -47,6 +47,19 @@ export default defineConfig({
     mdx(),
     alpinejs(),
   ],
+  vite: {
+    css: {
+      transformer: 'lightningcss',
+      lightningcss: {
+        // Lightning CSS Optionen hier
+        drafts: {
+          nesting: true,
+          customMedia: true,
+        },
+        minify: true,
+      },
+    },
+  },
 });
 EOF
 
@@ -88,6 +101,7 @@ cat > src/layouts/Layout.astro <<EOF
 ---
 import { ViewTransitions } from 'astro:transitions';
 import AlpineSetup from '../components/AlpineSetup.astro';
+import '../styles/global.css';
 
 export interface Props {
   title: string;
@@ -108,7 +122,7 @@ const { title } = Astro.props;
     <AlpineSetup />
   </head>
   <body class="min-h-screen" x-data="{ darkMode: false }">
-    <div class="px-5 py-3" x-bind:class="darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'">
+    <div class="container px-5 py-3" x-bind:class="darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'">
       <header class="pb-4">
         <div class="flex justify-between items-center">
           <h1 class="text-2xl font-bold">Astro + Alpine.js</h1>
@@ -246,7 +260,7 @@ echo "📝 Erstelle README.md..."
 cat > README.md <<EOF
 # $PROJECT_NAME
 
-Ein Astro-Projekt mit @casoon/ui-lib, @casoon/astro-components und Alpine.js.
+Ein Astro-Projekt mit @casoon/ui-lib, @casoon/astro-components, Alpine.js und Lightning CSS.
 
 ## Entwicklung
 
@@ -266,17 +280,81 @@ Dieses Projekt verwendet Alpine.js für interaktive Komponenten:
 - Die Alpine.js-Konfiguration befindet sich in \`src/components/AlpineSetup.astro\`
 - Alpine-Direktiven können in allen Astro-Komponenten verwendet werden
 - Beispiele findest du auf der Startseite
+
+## Lightning CSS
+
+Dieses Projekt verwendet Lightning CSS für optimierte CSS-Verarbeitung:
+
+- Lightning CSS ist als Vite-Plugin konfiguriert
+- Unterstützt moderne CSS-Features wie Nesting und Custom Media Queries
+- CSS wird automatisch minimiert und optimiert
+- Keine zusätzliche Konfiguration erforderlich
 EOF
 
-# 12. Git Repository initialisieren (optional)
+# 12. Erstelle ein Beispiel-CSS-File
+echo "🎨 Erstelle globale CSS-Datei mit Lightning CSS Features..."
+mkdir -p src/styles
+cat > src/styles/global.css <<EOF
+/* globale CSS-Datei mit Lightning CSS Features */
+
+/* CSS Variablen */
+:root {
+  --color-primary: #4a56e2;
+  --color-secondary: #6e44ff;
+  --color-text: #333;
+  --color-background: #fff;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+}
+
+/* Custom Media Queries (Lightning CSS Feature) */
+@custom-media --viewport-sm (min-width: 640px);
+@custom-media --viewport-md (min-width: 768px);
+@custom-media --viewport-lg (min-width: 1024px);
+
+/* CSS Nesting (Lightning CSS Feature) */
+.card {
+  padding: var(--spacing-md);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  & h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  & p {
+    color: var(--color-text);
+  }
+}
+
+/* Responsive mit Custom Media Queries */
+.container {
+  width: 100%;
+  padding: var(--spacing-md);
+  
+  @media (--viewport-md) {
+    max-width: 768px;
+    margin: 0 auto;
+  }
+  
+  @media (--viewport-lg) {
+    max-width: 1024px;
+  }
+}
+EOF
+
+# 13. Git Repository initialisieren (optional)
 echo "🔧 Initialisiere Git Repository..."
 git init
 git add .
-git commit -m "Initial commit: Astro-Projekt mit Alpine.js"
+git commit -m "Initial commit: Astro-Projekt mit Alpine.js und Lightning CSS"
 
 # Zurück zum Ursprungsverzeichnis
 cd ../../
 
 echo "✅ Setup abgeschlossen!"
+echo "✨ Lightning CSS wurde hinzugefügt und konfiguriert"
 echo "💡 Wechsle in dein Projektverzeichnis: cd dist/$PROJECT_NAME"
 echo "🚀 Starte den Dev-Server mit: npm run dev"
