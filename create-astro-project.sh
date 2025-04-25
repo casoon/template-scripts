@@ -42,12 +42,16 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import alpinejs from '@astrojs/alpinejs';
 
+// Bestimme ob Produktionsmodus
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default defineConfig({
   integrations: [
     mdx(),
     alpinejs(),
   ],
   vite: {
+    plugins: [],
     css: {
       transformer: 'lightningcss',
       lightningcss: {
@@ -55,11 +59,23 @@ export default defineConfig({
         drafts: {
           nesting: true,
           customMedia: true,
+          customProperties: true,
         },
         minify: true,
+        verbose: !isProduction, // Detaillierte Ausgabe nur in Entwicklung
       },
+      devSourcemap: !isProduction, // Sourcemaps nur in Entwicklung
     },
+    logLevel: isProduction ? 'error' : 'info', // Log-Level basierend auf Umgebung
+    build: {
+      cssCodeSplit: true,
+      cssMinify: true,
+      logLevel: 'error',
+    }
   },
+  logger: {
+    level: isProduction ? 'error' : 'info',
+  }
 });
 EOF
 
