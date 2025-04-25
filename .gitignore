@@ -1,0 +1,26 @@
+# Betriebssystem-Dateien
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporäre Dateien
+*.tmp
+*.log
+*.swp
+*~
+
+# Editor-Verzeichnisse und Dateien
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ausführbare Dateien (wenn nicht explizit benötigt)
+# *.out
+# *.exe
+
+# Backups
+*.bak
+
+# Projektausgabe-Verzeichnis
+/dist/ 
