@@ -361,7 +361,25 @@ cat > src/styles/global.css <<EOF
 }
 EOF
 
-# 13. Git Repository initialisieren (optional)
+# 13. Erstelle tasks.md im Hauptverzeichnis
+echo "📋 Erstelle tasks.md mit Design-Vorgaben..."
+cat > tasks.md <<EOF
+# Casoon UI Design-Vorgaben
+
+- **Grundlage:** Immer Casoon UI Lib verwenden (\`casoon-ui-lib\`).
+- **Layer:** Vorhandene CSS-Layer und Utility-Klassen nutzen.
+- **Eigene Styles:** Nur falls nötig, in eigenem \`@layer my-custom-layer\` ergänzen.
+- **Design Tokens:** Farben, Abstände, Typografie etc. ausschließlich über Design Tokens steuern.
+- **Komponenten:** Bestehende Module verwenden oder sauber neue Module anlegen.
+- **Layout:** Grid, Flex und Container-Queries des Casoon-Systems verwenden.
+- **Dokumentation:** Neue Utilities oder Module kurz beschreiben.
+
+**Wichtig:**  
+Keine Überschreibung von bestehenden Casoon-Styles ohne triftigen Grund.
+Minimal zusätzliche CSS-Regeln schreiben.
+EOF
+
+# 14. Git Repository initialisieren (optional)
 echo "🔧 Initialisiere Git Repository..."
 git init
 git add .
