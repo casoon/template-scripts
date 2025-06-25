@@ -32,7 +32,7 @@ npm install
 
 # 5. Custom Packages installieren
 echo "📥 Installiere Custom-Packages..."
-npm install @casoon/ui-lib @casoon/astro-components alpinejs @astrojs/alpinejs @astrojs/mdx lightningcss
+npm install @casoon/dragonfly @casoon/astro-components alpinejs @astrojs/alpinejs @astrojs/mdx lightningcss
 
 # 6. Astro Integrationen in Config einfügen
 echo "🔧 Konfiguriere astro.config.mjs..."
@@ -276,7 +276,7 @@ echo "📝 Erstelle README.md..."
 cat > README.md <<EOF
 # $PROJECT_NAME
 
-Ein Astro-Projekt mit @casoon/ui-lib, @casoon/astro-components, Alpine.js und Lightning CSS.
+Ein Astro-Projekt mit @casoon/dragonfly, @casoon/astro-components, Alpine.js und Lightning CSS.
 
 ## Entwicklung
 
@@ -366,7 +366,7 @@ echo "📋 Erstelle tasks.md mit Design-Vorgaben..."
 cat > tasks.md <<EOF
 # Casoon UI Design-Vorgaben
 
-- **Grundlage:** Immer Casoon UI Lib verwenden (\`casoon-ui-lib\`).
+- **Grundlage:** Immer Casoon UI Lib verwenden (\`dragonfly\`).
 - **Layer:** Vorhandene CSS-Layer und Utility-Klassen nutzen.
 - **Eigene Styles:** Nur falls nötig, in eigenem \`@layer my-custom-layer\` ergänzen.
 - **Design Tokens:** Farben, Abstände, Typografie etc. ausschließlich über Design Tokens steuern.
